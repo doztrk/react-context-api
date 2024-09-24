@@ -14,8 +14,8 @@ export const LoginForm = () => {
 	const [error, setError] = useState(null);
 
 	const initialValues = {
-		username: "emily",
-		password: "emilyspass",
+		username: "",
+		password: "",
 	};
 
 	const validationSchema = Yup.object({
@@ -26,10 +26,9 @@ export const LoginForm = () => {
 	const onSubmit = async (values) => {
 		setError(null);
 		try {
-			const { token } = await login(values);
+			const { token,...user } = await login(values);
 			localStorage.setItem("token", token);
 
-			const user = await getAuthUser();
 
 			dispatchUser(userLogin(user));
 			navigate("/");
